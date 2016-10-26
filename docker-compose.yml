@@ -8,13 +8,13 @@ services:
     volumes:
       - ./apache2/conf:/etc/apache2/sites-enabled
       - ./apache2/www:/var/www
-      - ./apache2/conf:/var/log/apache2
+      - ./apache2/logs:/var/log/apache2
     restart: always
-    link: 
+    links: 
       - mongodb:mongodb
   
   mongodb:
-    image: mongo/latest
+    image: mongo:latest
     ports:
       - "27017:27017" 
     restart: always
