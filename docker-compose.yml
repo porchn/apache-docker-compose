@@ -1,1 +1,24 @@
-docker-compose.yml
+version: '2'
+
+services:
+  apache:
+    image: porchn/apache-mongo-php
+    ports:
+      - "80:80"
+    volumes:
+      - ./apache2/conf:/etc/apache2/sites-enabled
+      - ./apache2/www:/var/www
+      - ./apache2/conf:/var/log/apache2
+    restart: always
+    link: 
+      - mongodb:mongodb
+  
+  mongodb:
+    image: mongo/latest
+    ports:
+      - "27017:27017" 
+    restart: always
+    volumes:
+      - ./mongodb/dbconf:/data/configdb
+      - ./mongodb/dbdata:/data/db
+      - ./mongodb/dblogs:/var/log/mongodb
